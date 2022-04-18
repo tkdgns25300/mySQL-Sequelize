@@ -1,12 +1,23 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
+
+const corOptions = {
+  origin: "https://localhost:5000",
+};
 
 // middleware
+app.use(cors(corOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// start server
-app.listen(port, () => {
-    console.log(`The server is listening on port ${port}`)
+// api
+app.get('/', (req, res) => {
+    res.json({ message: 'hello from api' });
 })
+
+// start server
+app.listen(PORT, () => {
+  console.log(`The server is listening on port ${PORT}`);
+});
